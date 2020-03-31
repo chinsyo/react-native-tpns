@@ -26,16 +26,16 @@ export default {
   },
 
   /**
-   * 设置是否开启华为推送的调试模式
+   * 设置是否开启华为推送的调试模式, iOS不生效
    *
    * @param {boolean} enable
    */
   setHuaweiDebug(enable) {
-
+    return
   },
 
   /**
-   * 配置小米推送
+   * 配置小米推送, iOS不生效
    *
    * @param {string} appId
    * @param {string} appKey
@@ -50,7 +50,7 @@ export default {
   },
 
   /**
-   * 配置魅族推送
+   * 配置魅族推送, iOS不生效
    *
    * @param {string} appId
    * @param {string} appKey
