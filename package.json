@@ -1,5 +1,5 @@
 {
-  "name": "react-native-pure-xinge-push",
+  "name": "react-native-xinge",
   "version": "0.2.5",
   "description": "react native xinge push",
   "main": "index.js",
@@ -8,17 +8,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/musicode/react-native-pure-xinge-push.git"
+    "url": "git+https://github.com/chinsyo/react-native-xinge.git"
   },
   "keywords": [
     "react",
     "native",
     "xinge push"
   ],
-  "author": "musicode",
+  "author": "chinsyo",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/musicode/react-native-pure-xinge-push/issues"
+    "url": "https://github.com/chinsyo/react-native-xinge/issues"
   },
-  "homepage": "https://github.com/musicode/react-native-pure-xinge-push#readme"
+  "homepage": "https://github.com/chinsyo/react-native-xinge#readme"
 }
