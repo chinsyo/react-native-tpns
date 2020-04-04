@@ -1,4 +1,4 @@
-# react-native-pure-xinge-push
+# react-native-tpns
 
 信鸽 SDK 版本：
 
@@ -8,10 +8,10 @@
 ## 安装
 
 ```
-npm i react-native-pure-xinge-push
+npm i react-native-tpns
 
 // 如果react-native的版本>=0.60，会自动link，无需执行下面的命令
-react-native link react-native-pure-xinge-push
+react-native link react-native-pure-tpns
 ```
 
 ## 配置
@@ -81,35 +81,35 @@ buildTypes {
 ## 用法
 
 ```js
-import XingePush from "react-native-pure-xinge-push";
+import TPNS from "react-native-tpns";
 
 // 安卓开启厂商推送
-XingePush.enableOtherPush(true);
+TPNS.enableOtherPush(true);
 
 // 配置小米 (string, string)
-XingePush.setXiaomi(appId, appKey);
+TPNS.setXiaomi(appId, appKey);
 // 配置魅族 (string, string)
-XingePush.setMeizu(appId, appKey);
+TPNS.setMeizu(appId, appKey);
 
 // 配置华为，appId 写在 `android/app/build.gradle`，这里不用传了
 // 这种脑残的方案也不知道是华为搞的还是信鸽搞的
 // 开启华为的调试，如果不用就不调
-XingePush.setHuaweiDebug(true);
+TPNS.setHuaweiDebug(true);
 
 // 安卓逻辑到此结束
 
 // 是否需要开启信鸽调试
-XingPush.setDebug(true);
+TPNS.setDebug(true);
 
 // 配置信鸽 (number, string)
 // 启动成功会触发 register 事件
-XingePush.start(xgAccessId, xgAccessKey);
+TPNS.start(xgAccessId, xgAccessKey);
 
 // 停止接收推送
 XingPush.stop();
 
 // 监听事件
-let binder = XingePush.addEventListener("register", function(data) {
+let binder = TPNS.addEventListener("register", function(data) {
   // 信鸽错误码
   // ios: https://xg.qq.com/docs/ios_access/ios_returncode.html
   // android: https://xg.qq.com/docs/android_access/android_returncode.html
@@ -121,22 +121,22 @@ let binder = XingePush.addEventListener("register", function(data) {
   data.deviceToken;
 
   // 绑定帐号 (string)
-  XingePush.bindAccount("account");
+  TPNS.bindAccount("account");
 
   // 解除绑定帐号 (string)
-  XingePush.unbindAccount("account");
+  TPNS.unbindAccount("account");
 
   // 绑定标签 (Array)
-  XingePush.bindTags(["tag1", "tag2"]);
+  TPNS.bindTags(["tag1", "tag2"]);
 
   // 解除绑定标签 (Array)
-  XingePush.unbindTags(["tag1", "tag2"]);
+  TPNS.unbindTags(["tag1", "tag2"]);
 });
 // 解绑事件
 binder.remove();
 
 // 透传消息
-XingePush.addEventListener("message", function(message) {
+TPNS.addEventListener("message", function(message) {
   // message 类型为对象
   // ios 通过静默消息实现
   // android 通过透传消息实现
@@ -147,7 +147,7 @@ XingePush.addEventListener("message", function(message) {
 });
 
 // 推送消息
-XingePush.addEventListener("notification", function(notification) {
+TPNS.addEventListener("notification", function(notification) {
   // 推送是否弹出展现了
   notification.presented;
 

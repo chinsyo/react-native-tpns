@@ -1,24 +1,24 @@
 {
-  "name": "react-native-xinge",
+  "name": "react-native-tpns",
   "version": "0.2.5",
-  "description": "react native xinge push",
+  "description": "react native tpns",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/chinsyo/react-native-xinge.git"
+    "url": "git+https://github.com/chinsyo/react-native-tpns.git"
   },
   "keywords": [
     "react",
-    "native",
-    "xinge push"
+    "react native",
+    "tencent tpns"
   ],
   "author": "chinsyo",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/chinsyo/react-native-xinge/issues"
+    "url": "https://github.com/chinsyo/react-native-tpns/issues"
   },
-  "homepage": "https://github.com/chinsyo/react-native-xinge#readme"
+  "homepage": "https://github.com/chinsyo/react-native-tpns#readme"
 }

@@ -1,3 +1,3 @@
-import XingePush from './js/XingePush'
+import TPNS from './js/TPNS'
 
-export default XingePush
+export default TPNS
