@@ -2,9 +2,9 @@
 #import <React/RCTEventEmitter.h>
 #import <React/RCTBridgeModule.h>
 
-#import "XGPush.h"
 
-@interface RNTXingePushModule : RCTEventEmitter <RCTBridgeModule, XGPushDelegate, XGPushTokenManagerDelegate>
+
+@interface RNTXingePushModule : RCTEventEmitter 
 
 + (void)didFinishLaunchingWithOptions:(NSDictionary *)launchOptions;
 

@@ -1,6 +1,7 @@
 
 #import "RNTXingePushModule.h"
 #import <React/RCTUtils.h>
+#import <TPNS-iOS/XGPush.h>
 
 static const NSString *const XingePushEvent_Start = @"start";
 static const NSString *const XingePushEvent_Stop = @"stop";
@@ -62,6 +63,10 @@ static NSMutableDictionary* XingePush_GetNotification(NSDictionary *userInfo) {
     return resultDict;
 
 };
+
+@interface () <RCTBridgeModule, XGPushDelegate, XGPushTokenManagerDelegate>
+
+@end
 
 @implementation RNTXingePushModule
 
@@ -238,24 +243,11 @@ RCT_EXPORT_MODULE(RNTXingePush);
         XingePushEvent_UnbindAccount,
         XingePushEvent_UnbindTags,
         XingePushEvent_Message,
-        XingePushEvent_Notification
+        XingePushEvent_Notification,
         ];
 }
 
-RCT_EXPORT_METHOD(start:(NSInteger)appID appKey:(NSString *)appKey) {
-    [[XGPush defaultManager]startXGWithAppID:(uint32_t)appID appKey:appKey delegate:self];
-    [XGPushTokenManager defaultTokenManager].delegate = self;
-    if (RNTXingePush_LaunchUserInfo != nil) {
-        NSMutableDictionary *dict = XingePush_GetNotification(RNTXingePush_LaunchUserInfo);
-        dict[@"clicked"] = @YES;
-        [self sendEventWithName:XingePushEvent_Notification body:dict];
-        RNTXingePush_LaunchUserInfo = nil;
-    }
-}
-
-RCT_EXPORT_METHOD(stop) {
-    [[XGPush defaultManager] stopXGNotification];
-}
+#pragma mark - XGPushTokenManager
 
 RCT_EXPORT_METHOD(bindAccount:(NSString *)account) {
     [[XGPushTokenManager defaultTokenManager] bindWithIdentifier:account type:XGPushTokenBindTypeAccount];
@@ -273,6 +265,48 @@ RCT_EXPORT_METHOD(unbindTags:(NSArray *)tags) {
     [[XGPushTokenManager defaultTokenManager] unbindWithIdentifers:tags type:XGPushTokenBindTypeTag];
 }
 
+RCT_EXPORT_METHOD(clearAllIdentifiers:(XGPushTokenBindType)type) {
+    [[XGPushTokenManager defaultTokenManager] clearAllIdentifiers:type];
+}
+
+RCT_EXPORT_METHOD(clearAccount) {
+    [[XGPushTokenManager defaultTokenManager] clearAllIdentifiers:XGPushTokenBindTypeAccount];
+}
+
+RCT_EXPORT_METHOD(clearTags) {
+    [[XGPushTokenManager defaultTokenManager] clearAllIdentifiers:XGPushTokenBindTypeTag];
+
+}
+
+#pragma mark - XGPush
+RCT_EXPORT_METHOD(setDebug:(BOOL)enable) {
+    [[XGPush defaultManager] setEnableDebug:enable];
+}
+
+RCT_EXPORT_METHOD(start:(NSInteger)appID appKey:(NSString *)appKey) {
+    [[XGPush defaultManager] startXGWithAppID:(uint32_t)appID appKey:appKey delegate:self];
+    [XGPushTokenManager defaultTokenManager].delegate = self;
+    if (RNTXingePush_LaunchUserInfo != nil) {
+        NSMutableDictionary *dict = XingePush_GetNotification(RNTXingePush_LaunchUserInfo);
+        dict[@"clicked"] = @(YES);
+        [self sendEventWithName:XingePushEvent_Notification body:dict];
+        RNTXingePush_LaunchUserInfo = nil;
+    }
+}
+
+RCT_EXPORT_METHOD(stop) {
+    [[XGPush defaultManager] stopXGNotification];
+}
+
+RCT_EXPORT_METHOD(reportNotification:(NSDictionary *)info) {
+    [[XGPush defaultManager] reportXGNotificationInfo:info];
+}
+
+RCT_EXPORT_METHOD(reportResponse:(NSDictionary *)resp) {
+    UNNotificationResponse *response = [[UNNotificationResponse alloc] init];
+    [[XGPush defaultManager] reportXGNotificationResponse:response];
+}
+
 RCT_EXPORT_METHOD(setBadge:(NSInteger)badge) {
     // 这里本地角标
     [[XGPush defaultManager] setXgApplicationBadgeNumber:badge];
@@ -281,15 +315,22 @@ RCT_EXPORT_METHOD(setBadge:(NSInteger)badge) {
 }
 
 RCT_EXPORT_METHOD(getBadge:(RCTPromiseResolveBlock)resolve
-                  reject:(RCTPromiseRejectBlock)reject) {
+                  rejecter:(RCTPromiseRejectBlock)reject) {
     NSInteger badge = [[XGPush defaultManager] xgApplicationBadgeNumber];
     resolve(@{
               @"badge": @(badge)
               });
 }
 
-RCT_EXPORT_METHOD(setDebug:(BOOL)enable) {
-    [[XGPush defaultManager] setEnableDebug:enable];
+RCT_EXPORT_METHOD(deviceNotificationIsAllowed:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
+    [[XGPush defaultManager] deviceNotificationIsAllowed:^(BOOL isAllowed) {
+        resolve(@(isAllowed));
+    }];
+}
+
+RCT_EXPORT_METHOD(sdkVersion:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
+    NSString *version = [[XGPush defaultManager] sdkVersion];
+    resolve(version);
 }
 
 @end
