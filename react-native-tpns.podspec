@@ -12,10 +12,10 @@ Pod::Spec.new do |s|
   s.homepage     = package['homepage']
   s.platform     = :ios, "9.0"
 
-  s.source       = { :git => "https://github.com/chinsyo/react-native-xinge.git", :tag => "v#{s.version}" }
+  s.source       = { :git => "https://github.com/chinsyo/react-native-tpns.git", :tag => "v#{s.version}" }
   s.source_files  = "ios/**/*.{h,m}"
 
   s.dependency 'React'
-  s.dependency 'QQ_XGPush'
+  s.dependency 'TPNS-iOS'
 
 end

@@ -1,6 +1,6 @@
 # react-native-tpns
 
-信鸽 SDK 版本：
+SDK 版本：
 
 - ios: 3.3.7
 - android: 4.3.7
@@ -59,8 +59,8 @@ buildTypes {
 
         // 重点是这三个配置项
         manifestPlaceholders = [
-            XG_ACCESS_ID: "信鸽 accessId",
-            XG_ACCESS_KEY: "信鸽 accessKey",
+            XG_ACCESS_ID: "accessId",
+            XG_ACCESS_KEY: "accessKey",
             HW_APPID: "华为 appId"
         ]
     }
@@ -70,8 +70,8 @@ buildTypes {
 
         // 重点是这三个配置项
         manifestPlaceholders = [
-            XG_ACCESS_ID: "信鸽 accessId",
-            XG_ACCESS_KEY: "信鸽 accessKey",
+            XG_ACCESS_ID: "accessId",
+            XG_ACCESS_KEY: "accessKey",
             HW_APPID: "华为 appId"
         ]
     }
@@ -92,16 +92,15 @@ TPNS.setXiaomi(appId, appKey);
 TPNS.setMeizu(appId, appKey);
 
 // 配置华为，appId 写在 `android/app/build.gradle`，这里不用传了
-// 这种脑残的方案也不知道是华为搞的还是信鸽搞的
 // 开启华为的调试，如果不用就不调
 TPNS.setHuaweiDebug(true);
 
 // 安卓逻辑到此结束
 
-// 是否需要开启信鸽调试
+// 是否需要开启调试
 TPNS.setDebug(true);
 
-// 配置信鸽 (number, string)
+// 配置 (number, string)
 // 启动成功会触发 register 事件
 TPNS.start(xgAccessId, xgAccessKey);
 
@@ -110,7 +109,7 @@ XingPush.stop();
 
 // 监听事件
 let binder = TPNS.addEventListener("register", function(data) {
-  // 信鸽错误码
+  // 错误码
   // ios: https://xg.qq.com/docs/ios_access/ios_returncode.html
   // android: https://xg.qq.com/docs/android_access/android_returncode.html
   if (data.error) {
