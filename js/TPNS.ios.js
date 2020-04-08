@@ -6,7 +6,11 @@ const { Tpns } = NativeModules;
 const eventEmitter = new NativeEventEmitter(Tpns)
 
 export default {
-
+    
+  sdkVersion() {
+    return Tpns.sdkVersion()
+  },
+  
   /**
    * 设置是否开启调试模式，底层 SDK 会打印详细信息
    *
